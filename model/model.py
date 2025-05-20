@@ -36,6 +36,10 @@ class Model:
         for n in self._nodes:
             somma = 0
             for edge in self._graph.edges(n, data=True):
-                somma += int(edge[2]["weight"])
+                somma += int(edge[2]["weight"][0]["N"])
             diz[n] = somma
-        return diz
+        chiaviOrdinate = sorted(diz, key=lambda n: diz[n], reverse=True)
+        dizOrdinato = {}
+        for a in chiaviOrdinate:
+            dizOrdinato[a] = diz[a]
+        return dizOrdinato
