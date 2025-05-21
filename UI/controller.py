@@ -23,6 +23,7 @@ class Controller:
 
     def handle_graph(self, e):
         self._view.txt_result.controls.clear()
+        self._view.txtOut3.controls.clear()
         self._view.btn_volume.disabled = False
         self._view.btn_path.disabled = False
         country = self._view.ddcountry.value

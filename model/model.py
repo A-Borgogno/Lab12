@@ -63,25 +63,28 @@ class Model:
 
     def _ricorsione(self, parziale, archiTotali, peso):
         if len(parziale) == archiTotali + 1:  # condizione terminale
-            if peso > self._bestPeso and parziale[0] != parziale[-1]:
+            if peso > self._bestPeso and parziale[0] == parziale[-1]:
                 self._bestPath = copy.deepcopy(parziale)
                 self._bestPeso = peso
             return
         else:
             for n in self._graph.neighbors(parziale[-1]):
-                if n not in parziale:
-                    peso += self._graph.get_edge_data(parziale[-1], n)['weight'][0]["N"]
+                if n == parziale[0] and len(parziale) == archiTotali:
+                    pesoArco = self._graph.get_edge_data(parziale[-1], n)['weight'][0]["N"]
+                    peso += pesoArco
+                    # self._graph[1][2]["peso"]*********************
+                    parziale.append(n)
+                    self._ricorsione(parziale, archiTotali, peso)
+                    parziale.pop()
+                    peso -= pesoArco
+                elif n not in parziale:
+                    pesoArco = self._graph.get_edge_data(parziale[-1], n)['weight'][0]["N"]
+                    peso += pesoArco
                     #self._graph[1][2]["peso"]*********************
                     parziale.append(n)
                     self._ricorsione(parziale, archiTotali, peso)
                     parziale.pop()
+                    peso -= pesoArco
 
 
-    def _verificaParziale(self, parziale):
-        if parziale[0] != parziale[-1]:
-            return False
-        for nodo in parziale:
-            i = parziale.index(nodo)
-            if nodo in parziale[:i] or nodo in parziale[i + 1:]:
-                return False
-        return True
+
