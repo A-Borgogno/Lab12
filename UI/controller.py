@@ -40,4 +40,16 @@ class Controller:
         self._view.update_page()
 
     def handle_path(self, e):
-        pass
+        self._view.txtOut3.controls.clear()
+        try:
+            N = int(self._view.txtN.value)
+        except ValueError:
+            self._view.txtOut3.controls.append(ft.Text("Inserire un numero!", color="red", size=18, weight=ft.FontWeight.BOLD))
+            self._view.update_page()
+            return
+        path, weight = self._model.searchPath(N)
+        self._view.txtOut3.controls.append(ft.Text(f"Peso cammino massimo: {weight}"))
+        for node in path:
+            self._view.txtOut3.controls.append(ft.Text(node))
+        self._view.update_page()
+
