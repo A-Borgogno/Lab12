@@ -15,4 +15,4 @@ class Retailer:
         return hash(self.Retailer_code)
 
     def __str__(self):
-        return f"{self.Retailer_code} - {self.Retailer_name}"
+        return f"{self.Retailer_name}"

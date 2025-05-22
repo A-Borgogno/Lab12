@@ -1,3 +1,5 @@
+from operator import indexOf
+
 import flet as ft
 
 
@@ -50,7 +52,8 @@ class Controller:
             return
         path, weight = self._model.searchPath(N)
         self._view.txtOut3.controls.append(ft.Text(f"Peso cammino massimo: {weight}"))
-        for node in path:
-            self._view.txtOut3.controls.append(ft.Text(node))
+        for node in path[:-1]:
+            nodoSuccessivo = path[indexOf(path, node) +1 ]
+            self._view.txtOut3.controls.append(ft.Text(f"{node} --> {nodoSuccessivo}: {self._model._graph.get_edge_data(node, nodoSuccessivo)['weight'][0]["N"]}"))
         self._view.update_page()
 
